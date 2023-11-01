@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'token',  // API認証にトークンを使用
+            'provider' => 'users',
+        ],
     ],
 
     /*
