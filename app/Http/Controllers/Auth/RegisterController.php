@@ -10,12 +10,8 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    /**
-     * RegisterService
-     *
-     * @var mixed
-     */
-    private $RegisterService;
+    /** @var mixed $RegisterService */
+    private RegisterServiceInterface $RegisterService;
 
     /**
      * __construct

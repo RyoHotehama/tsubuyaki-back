@@ -12,5 +12,5 @@ interface RegisterServiceInterface
      * @param  mixed $registData
      * @return User
      */
-    public function RegistUser($registData): User;
+    public function registUser($registData): User;
 }

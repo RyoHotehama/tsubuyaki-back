@@ -4,9 +4,9 @@ namespace App\Services\Auth;
 
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
-use App\Services\Interfaces\Auth\RegisterServiceInterface;
+use App\Services\Interfaces\Auth\LoginServiceInterface;
 
-class RegisterService implements RegisterServiceInterface
+class LoginService implements LoginServiceInterface
 {
     /** @var mixed $UserRepository */
     private UserRepositoryInterface $UserRepository;
@@ -23,13 +23,13 @@ class RegisterService implements RegisterServiceInterface
     }
 
     /**
-     * 会員登録処理
+     * 会員情報を取得
      *
-     * @param  mixed $registData 登録データ
+     * @param  mixed $name ユーザーネーム
      * @return User
      */
-    public function registUser($registData): User
+    public function getUserInfo($name): User
     {
-        return $this->UserRepository->createUser($registData);
+        return $this->UserRepository->getUserByName($name);
     }
 }
