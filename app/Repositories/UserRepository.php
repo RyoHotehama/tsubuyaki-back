@@ -2,8 +2,12 @@
 
 namespace App\Repositories;
 
+use App\Exceptions\ApiException;
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
+use Illuminate\Support\Facades\Log;
+use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 class UserRepository implements UserRepositoryInterface
 {
@@ -15,7 +19,13 @@ class UserRepository implements UserRepositoryInterface
      */
     public function createUser($registData) : User
     {
-        return User::create($registData);
+        try {
+            return User::create($registData);
+        } catch (Throwable $e) {
+            Log::error($e);
+
+            throw new ApiException('予期せぬエラーが発生しました', Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -26,6 +36,12 @@ class UserRepository implements UserRepositoryInterface
      */
     public function getUserByName($name) : User
     {
-        return User::where('name', $name)->first();
+        try {
+            return User::where('name', $name)->first();
+        } catch (Throwable $e) {
+            Log::error($e);
+
+            throw new ApiException('予期せぬエラーが発生しました', Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 }

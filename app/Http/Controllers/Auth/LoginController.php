@@ -7,6 +7,7 @@ use App\Services\Interfaces\Auth\LoginServiceInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends Controller
 {
@@ -35,13 +36,13 @@ class LoginController extends Controller
         if (!Auth::attempt($request->only('name', 'password'))) {
             $message = 'ユーザーネームまたはパスワードが違います。';
 
-            return response()->json(['message' => $message], 400);
+            return response()->json(['errors' => ['message' => $message]], 400);
         }
 
         $user = $this->LoginService->getUserInfo($request->input('name'));
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['token' => $token], 200);
+        return response()->json(['token' => $token], Response::HTTP_OK);
     }
 }
